@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "wdio": "wdio run ./wdio.conf.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wdio/cli": "^8.39.0",
+    "@wdio/selenium-standalone-service": "^8.15.0",
+    "pg": "^8.12.0",
+    "wdio-chromedriver-service": "^8.1.1",
+    "webdriverio": "^8.39.0"
+  },
+  "devDependencies": {
+    "@wdio/local-runner": "^8.39.0",
+    "@wdio/mocha-framework": "^8.39.0",
+    "@wdio/spec-reporter": "^8.39.0",
+    "wdio-wait-for": "^3.0.11"
+  }
+}
