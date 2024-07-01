@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import NavBar from './components/Navbar';
 import LinkInput from './components/LinkInput';
 import JobTable from './components/JobsTable';
+import Profile from './components/Profile';
+
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -24,6 +26,7 @@ function App() {
       <NavBar />
       <LinkInput onSubmit={handleLinkSubmit} />
       <JobTable jobs={jobs} />
+      <Profile/>
     </>
   );
 }
