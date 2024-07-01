@@ -3,7 +3,9 @@ import "./globals.css"
 import 'bootstrap/dist/css/bootstrap.css';
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import React from "react"
+import BootstrapClient from "./util/BootStrapClient";
 const inter = Inter({ subsets: ["latin"] });
+
 
 export const metadata = {
   title: "Create Next App",
@@ -19,6 +21,7 @@ export default function RootLayout({ children }) {
             {children}
           </React.StrictMode>
         </GoogleOAuthProvider>
+        <BootstrapClient />
       </body>
     </html>
   );
