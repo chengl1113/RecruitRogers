@@ -26,7 +26,6 @@ function App() {
       <NavBar />
       <LinkInput onSubmit={handleLinkSubmit} />
       <JobTable jobs={jobs} />
-      <Profile/>
     </>
   );
 }
