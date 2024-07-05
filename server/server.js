@@ -24,6 +24,10 @@ const scrapeLinkedInJob = async () => {
         // Open the website
         await browser.url('https://www.linkedin.com/jobs/view/3916794582/');
 
+        // Get the current URL
+        const currentUrl = await browser.getUrl();
+        console.log(currentUrl);
+
         // Locate and find job title
         const jobTitle = await browser.$('#job-search-bar-keywords');
         const jobTitleValue = await jobTitle.getValue();
@@ -42,16 +46,19 @@ const scrapeLinkedInJob = async () => {
         // Connect to PostgreSQL and insert data
         const client = new Client({
             user: 'postgres',
-            host: 'localhost',
+            host: 'my-postgres-db.cja62uuuq2nh.us-east-1.rds.amazonaws.com',
             database: 'job_data',
-            password: '121Chang',
+            password: 'Mikessmurf123',
             port: 5432,
+            ssl: {
+                rejectUnauthorized: false
+            }
         });
 
         await client.connect();
 
-        const query = 'INSERT INTO jobs (job_title, company_name, location) VALUES ($1, $2, $3)';
-        const values = [jobTitleValue, companyText, locationText];
+        const query = 'INSERT INTO jobs (job_title, company_name, location, pay_range, url) VALUES ($1, $2, $3, $4, $5)';
+        const values = [jobTitleValue, companyText, locationText, "Test pay", currentUrl];
 
         await client.query(query, values);
         await client.end();
