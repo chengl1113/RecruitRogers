@@ -47,7 +47,7 @@ function Profile() {
             <br />
             <br />
             {profile ? (
-                <div>
+                <div className='container'>
                     <img src={profile.picture} alt="user image" />
                     <h3>User Logged in</h3>
                     <p>Name: {profile.name}</p>
