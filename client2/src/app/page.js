@@ -1,15 +1,16 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
-import { useEffect, useState } from 'react'
-import NavBar from './components/Navbar'
-import LinkInput from './components/LinkInput'
-import JobTable from './components/JobsTable'
+"use client";
+import './App.module.css';
+import { useEffect, useState } from 'react';
+import NavBar from './components/Navbar';
+import LinkInput from './components/LinkInput';
+import JobTable from './components/JobsTable';
+import Profile from './components/Profile';
+
 
 function App() {
   const [jobs, setJobs] = useState([]);
 
   const handleLinkSubmit = (link) => {
-    // Fetch job details using the link (mock data here for demonstration)
     const newJob = {
       title: 'Software Engineer',
       company: 'Google',
@@ -26,7 +27,7 @@ function App() {
       <LinkInput onSubmit={handleLinkSubmit} />
       <JobTable jobs={jobs} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
