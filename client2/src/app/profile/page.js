@@ -2,20 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
-import { Navigate } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
+
+import { useRouter } from 'next/navigation'
 
 
 function Profile() {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
+    const router = useRouter();
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
             setUser(codeResponse),
                 sessionStorage.setItem('token', codeResponse.access_token)
-            useNavigate('');
+            router.push('/');
         },
         onError: (error) => console.log('Login Failed:', error)
     });
