@@ -2,20 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
+
 
 function Profile() {
-    const [ user, setUser ] = useState(null);
-    const [ profile, setProfile ] = useState(null);
+    const [user, setUser] = useState(null);
+    const [profile, setProfile] = useState(null);
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
             setUser(codeResponse),
-            sessionStorage.setItem('token', codeResponse.access_token)
-            },
+                sessionStorage.setItem('token', codeResponse.access_token)
+            useNavigate('');
+        },
         onError: (error) => console.log('Login Failed:', error)
     });
 
-    useEffect( () => {
+    useEffect(() => {
         const token = sessionStorage.getItem('token');
         console.log(token);
         if (token) {
@@ -32,7 +37,7 @@ function Profile() {
                 })
                 .catch((err) => console.log(err));
         }
-    }, [ user ]);
+    }, [user]);
 
     // log out function to log the user out of google and set the profile array to null
     const logOut = () => {
@@ -43,7 +48,6 @@ function Profile() {
 
     return (
         <div>
-            <h2>Profile</h2>
             <br />
             <br />
             {profile ? (
@@ -54,13 +58,31 @@ function Profile() {
                     <p>Email Address: {profile.email}</p>
                     <br />
                     <br />
-                    <button onClick={logOut}>Log out</button>
+                    <button classname="btn btn-primary btn-floating mx-1" onClick={logOut}>Log out</button>
                 </div>
             ) : (
-                <button onClick={() => login()}>Sign in with Google 🚀 </button>
+                <div className="container-fluid h-custom">
+                    <div className="row d-flex justify-content-center align-items-center h-100">
+                        <div className="col-md-9 col-lg-6 col-xl-5">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                                className="img-fluid" alt="Sample image" />
+                        </div>
+                        <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                            <form>
+                                <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                                    <p className="lead fw-normal mb-0 me-3">Sign in with</p>
+                                    <button onClick={login} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-floating mx-1">
+                                        <i className="bi bi-google"></i>
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
-}   
+}
 
 export default Profile;
