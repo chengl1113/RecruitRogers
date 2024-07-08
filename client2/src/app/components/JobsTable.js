@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useEffect, useState, forwardRef, useImperativeHandle } from "react";
+import axios from 'axios';
 
-const JobTable = ({ jobs }) => {
+const JobTable = forwardRef((props, ref) => {
+    const [jobs, setJobs] = useState([]);
+
+    const fetchJobs = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/api/jobs");
+            setJobs(response.data);
+        } catch {
+            console.error("Error fetching jobs");
+        }
+    };
+
+    useImperativeHandle(ref, () => ({
+        fetchJobs
+    }));
+
+    useEffect(() => {
+        fetchJobs();
+    }, []);
+
     return (
         <div className="container mt-5">
             <table className="table table-striped table-bordered">
@@ -16,12 +36,12 @@ const JobTable = ({ jobs }) => {
                 <tbody>
                     {jobs.map((job, index) => (
                         <tr key={index}>
-                            <td>{job.title}</td>
-                            <td>{job.company}</td>
+                            <td>{job.job_title}</td>
+                            <td>{job.company_name}</td>
                             <td>{job.location}</td>
-                            <td>{job.pay}</td>
+                            <td>{job.pay_range}</td>
                             <td>
-                                <a href={job.link} target="_blank" rel="noopener noreferrer">
+                                <a href={job.url} target="_blank" rel="noopener noreferrer">
                                     View Listing
                                 </a>
                             </td>
@@ -31,6 +51,6 @@ const JobTable = ({ jobs }) => {
             </table>
         </div>
     );
-};
+});
 
 export default JobTable;
