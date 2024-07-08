@@ -104,15 +104,21 @@ const scrapeLinkedInJob = async (url) => {
 // Export scrapeLinkedInJob for use in other files
 module.exports = { scrapeLinkedInJob };
 
+
+
+
+// TESTING ENDPOINTS
+
 // Scrape url and create row
-// curl -X POST http://localhost:3000/api/scrape -H "Content-Type: application/json" -d '{"url": "https://www.linkedin.com/jobs/view/3916794582/"}'
+// curl -X POST http://localhost:3000/api/scrape -H "Content-Type: application/json" -d "{\"url\": \"https://www.linkedin.com/jobs/view/3916794582/\"}"
 
 // Read row at id: 3
 //curl -X GET http://localhost:3000/api/jobs/3
 
 // Update row at id: 3
-// curl -X PUT http://localhost:3000/api/jobs/3 -H "Content-Type: application/json" -d "{\"job_title\": \"Senior Software Engineer\", \"company_name\": \"Tech Company\", \"location\": \"New York, NY\", \"pay_range\": \"$120k\", \"url\": \"http://example.com\"}"
+// curl -X PUT http://localhost:3000/api/jobs/14 -H "Content-Type: application/json" -d "{\"job_title\": \"Cashier\", \"company_name\": \"Tech Company\", \"location\": \"New York, NY\", \"pay_range\": \"$120k\", \"url\": \"http://example.com\"}"
 
 // Create row
 // curl -X POST http://localhost:3000/api/jobs -H "Content-Type: application/json" -d "{\"job_title\": \"Software Engineer\", \"company_name\": \"Tech Company\", \"location\": \"New York, NY\", \"pay_range\": \"$100k\", \"url\": \"http://example.com\"}"
+
 
