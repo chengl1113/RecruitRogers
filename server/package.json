@@ -14,6 +14,8 @@
   "dependencies": {
     "@wdio/cli": "^8.39.0",
     "@wdio/selenium-standalone-service": "^8.15.0",
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
     "pg": "^8.12.0",
     "wdio-chromedriver-service": "^8.1.1",
     "webdriverio": "^8.39.0"
