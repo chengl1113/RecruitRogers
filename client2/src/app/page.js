@@ -12,15 +12,26 @@ function App() {
   const jobTableRef = useRef(null);
 
   const handleLinkSubmit = async (link) => {
-    try {
-      await axios.post("http://localhost:3000/api/scrape", {"url": link})
-      if (jobTableRef.current) {
-        jobTableRef.current.fetchJobs();
+    // try {
+
+    //   // if (jobTableRef.current) {
+    //   //   jobTableRef.current.fetchJobs();
+    //   // }
+    // }
+    // catch (error) {
+    //   console.error(error);
+    // }
+    axios.get("http://54.221.28.111:3000/api/scrape", {
+      params: {
+        url: link
       }
-    }
-    catch (error) {
-      console.error(error);
-    }
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      })
   };
 
   return (
