@@ -28,6 +28,14 @@ const JobTable = forwardRef((props, ref) => {
         modalRef.current.openModal(job);
     };
 
+    const handleJobUpdate = (updatedJob) => {
+        setJobs((prevJobs) =>
+            prevJobs.map((job) =>
+                job.id === updatedJob.id ? updatedJob : job
+            )
+        );
+    };
+
     return (
         <div className="container mt-5">
             <table className="table table-striped table-bordered">
@@ -64,7 +72,7 @@ const JobTable = forwardRef((props, ref) => {
                     ))}
                 </tbody>
             </table>
-            <EditJobModal ref={modalRef} />
+            <EditJobModal ref={modalRef} onJobUpdate={handleJobUpdate} />
         </div>
     );
 });
