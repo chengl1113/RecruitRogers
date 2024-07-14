@@ -1,5 +1,6 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 const EditJobModal = forwardRef((props, ref) => {
     const [show, setShow] = useState(false);
@@ -15,8 +16,15 @@ const EditJobModal = forwardRef((props, ref) => {
         }
     }));
 
-    const handleSave = () => {
+    const handleSave = async () => {
         // Implement the save logic here
+        try {
+            const response = await axios.put(`http://54.221.28.111:3000/api/jobs/${job.id}`, job);
+            console.log("Job updated :) ", response.data);
+        } catch (error) {
+            console.error('Error updating job:', error);
+        }
+
         handleClose();
     };
 

@@ -43,7 +43,7 @@ const JobTable = forwardRef((props, ref) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {jobs.map((job, index) => (
+                    {jobs.sort((a, b) => b.id - a.id).map((job, index) => (
                         <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{job.job_title}</td>
