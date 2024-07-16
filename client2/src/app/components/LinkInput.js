@@ -7,14 +7,15 @@ const LinkInput = ({ onSubmit }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Submitting");
+        onSubmit(link);
         setLink('');
     }
 
     return (
         <div className="container mt-5">
-            <form onSubmit={handleSubmit}>
+            <form className="mt-5" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="jobLink">Job Listing Link</label>
+                    <label htmlFor="jobLink mt-2">Job Listing Link</label>
                     <input
                         type="url"
                         className="form-control"
@@ -25,7 +26,7 @@ const LinkInput = ({ onSubmit }) => {
                         required
                     />
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={onSubmit}>Submit</button>
+                <button type="submit" className="btn btn-primary mt-2" onClick={onSubmit}>Submit</button>
             </form>
         </div>
     )
