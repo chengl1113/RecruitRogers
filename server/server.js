@@ -7,9 +7,9 @@ const port = 3000;
 
 // Middleware
 app.use(bodyParser.json());
-app.use('/api', apiRoutes); // Changed './api' to '/api'
+app.use('/api', apiRoutes);
 
 // Start the server
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server is running on port ${port}`);
 });

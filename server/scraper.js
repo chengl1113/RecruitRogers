@@ -41,11 +41,19 @@ const scrapeLinkedInJob = async (url) => {
     // Set up WebDriver options
     const options = {
         logLevel: 'info',
-        path: '/',
         capabilities: {
             browserName: 'chrome',
-        },
-        services: ['chromedriver'],
+            'goog:chromeOptions': {
+                args: [
+                    '--headless',
+                    '--disable-gpu',
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--remote-debugging-port=9222'
+                ],
+                binary: '/usr/bin/google-chrome'
+            }
+        }
     };
 
     // Create WebDriver session
@@ -81,10 +89,13 @@ const scrapeLinkedInJob = async (url) => {
         const currentUrl = await browser.getUrl();
         console.log("Current URL: ", currentUrl);
 
+        // Test user_id
+        const user_id = -1;
+
         // Prepare query statement
-        const query = 'INSERT INTO jobs (job_title, company_name, location, url, pay_range) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+        const query = 'INSERT INTO jobs (job_title, company_name, location, url, pay_range, user) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
         // Bind the values for query
-        const values = [jobTitleValue, companyText, locationText, currentUrl, salaryInfo];
+        const values = [jobTitleValue, companyText, locationText, currentUrl, salaryInfo, user_id];
 
         // Insert the data
         const result = await client.query(query, values);
@@ -110,10 +121,11 @@ module.exports = { scrapeLinkedInJob };
 // TESTING ENDPOINTS
 
 // Scrape url and create row
-// curl -X POST http://localhost:3000/api/scrape -H "Content-Type: application/json" -d "{\"url\": \"https://www.linkedin.com/jobs/view/3916794582/\"}"
+// curl -X POST http://localhost:3000/api/scrape -H "Content-Type: application/json" -d "{\"url\": \"https://www.linkedin.com/jobs/view/sr-engineering-manager-embedded-software-at-rivian-3837566567\"}"
+// curl -X POST http://54.221.28.111:3000/api/scrape -H "Content-Type: application/json" -d "{\"url\": \"https://www.linkedin.com/jobs/view/sr-engineering-manager-embedded-software-at-rivian-3837566567\"}"
 
 // Read row at id: 3
-//curl -X GET http://localhost:3000/api/jobs/3
+// curl -X GET http://localhost:3000/api/jobs/3
 
 // Update row at id: 3
 // curl -X PUT http://localhost:3000/api/jobs/14 -H "Content-Type: application/json" -d "{\"job_title\": \"Cashier\", \"company_name\": \"Tech Company\", \"location\": \"New York, NY\", \"pay_range\": \"$120k\", \"url\": \"http://example.com\"}"
